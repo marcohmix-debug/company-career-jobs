@@ -1,0 +1,18 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Output of Company Career Jobs",
+    "properties": {
+        "jobs": {
+            "type": "string",
+            "title": "Jobs",
+            "description": "One item per open job: title, department, locations, workplace, pay when published, dates, links, ad text and, when requested, the AI brief.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        },
+        "summary": {
+            "type": "string",
+            "title": "Companies read",
+            "description": "One row per company of the input: platform found, open jobs, jobs saved, or why it could not be read.",
+            "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/SUMMARY"
+        }
+    }
+}

@@ -1,0 +1,110 @@
+{
+    "title": "Open jobs from company career pages",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "companies": {
+            "title": "Companies",
+            "type": "array",
+            "description": "One company per line. Best: the address of its career page on the hiring platform, for example https://jobs.ashbyhq.com/ramp, https://boards.greenhouse.io/stripe, https://jobs.lever.co/palantir, https://apply.workable.com/huggingface, https://jobs.smartrecruiters.com/BoschGroup, https://bunq.recruitee.com or https://acme.jobs.personio.de. Also accepted: platform:name (greenhouse:stripe), or just the short name (stripe): it is then looked up on every platform and the first board with open jobs is used.",
+            "editor": "stringList",
+            "prefill": ["https://jobs.ashbyhq.com/ramp", "https://boards.greenhouse.io/stripe"]
+        },
+        "titleKeywords": {
+            "title": "Job title contains any of",
+            "type": "array",
+            "description": "Keep only jobs whose title contains at least one of these words or phrases. Not case sensitive. Leave empty for all jobs.",
+            "editor": "stringList"
+        },
+        "excludeTitleKeywords": {
+            "title": "Job title does not contain",
+            "type": "array",
+            "description": "Leave out jobs whose title contains any of these words or phrases, for example intern.",
+            "editor": "stringList"
+        },
+        "locationKeywords": {
+            "title": "Location contains any of",
+            "type": "array",
+            "description": "Keep only jobs with a location containing one of these words, as the company writes it: Berlin, Germany, Remote, EMEA.",
+            "editor": "stringList"
+        },
+        "remoteOnly": {
+            "title": "Remote jobs only",
+            "type": "boolean",
+            "description": "Keep only jobs the platform marks as remote or that have Remote in the location or title.",
+            "default": false
+        },
+        "postedInLastDays": {
+            "title": "Published in the last N days",
+            "type": "integer",
+            "description": "Keep only jobs published in the last N days. For a monitor of new openings use \"Only jobs not delivered before\" below instead. Jobs without a publication date are left out when this is set.",
+            "minimum": 1
+        },
+        "descriptionKeywords": {
+            "title": "Ad text contains any of",
+            "type": "array",
+            "description": "Keep only jobs whose title or ad text contains at least one of these words or phrases, for example Kubernetes or Salesforce.",
+            "editor": "stringList"
+        },
+        "onlyNew": {
+            "title": "Only jobs not delivered before",
+            "type": "boolean",
+            "description": "Each run saves only the jobs that earlier runs of the same monitor have not saved yet, so a scheduled run gives you just what is new and you pay only for that. The first run saves every matching job. Jobs left out by the filters or by the limits are not marked as delivered: they come in a later run.",
+            "default": false,
+            "sectionCaption": "Monitor new jobs",
+            "sectionDescription": "For scheduled runs: get only what appeared since the last run."
+        },
+        "monitorName": {
+            "title": "Monitor name",
+            "type": "string",
+            "description": "Optional. Runs with the same name share one memory of delivered jobs. Give different names to keep separate monitors, for example one per client or per search. Changing the name starts from scratch.",
+            "editor": "textfield"
+        },
+        "maxJobsPerCompany": {
+            "sectionCaption": "Limits and output",
+            "title": "Maximum jobs per company",
+            "type": "integer",
+            "description": "After the filters. Leave empty for all.",
+            "prefill": 10,
+            "minimum": 1
+        },
+        "maxItems": {
+            "title": "Maximum jobs in total",
+            "type": "integer",
+            "description": "The run stops when this many jobs are saved.",
+            "default": 100,
+            "prefill": 20,
+            "minimum": 1
+        },
+        "includeDescription": {
+            "title": "Include the full ad text",
+            "type": "boolean",
+            "description": "Turn off for a lighter dataset with only the structured fields.",
+            "default": true
+        },
+        "aiBrief": {
+            "title": "AI brief",
+            "type": "boolean",
+            "description": "For each job, an AI reads the ad and returns: two-line summary, level, minimum years of experience, must-haves and nice-to-haves, technologies, pay as stated, remote rules, languages, visa sponsorship, benefits and conditions such as clearance or travel. Charged per brief. Each brief is written and then checked against the ad a second time.",
+            "default": false,
+            "sectionCaption": "AI brief",
+            "sectionDescription": "Optional and charged separately."
+        },
+        "language": {
+            "title": "Language of the brief",
+            "type": "string",
+            "description": "The brief is written in this language whatever the language of the ad.",
+            "editor": "select",
+            "default": "en",
+            "enum": ["en", "it", "de", "fr", "es", "pl", "nl", "pt"],
+            "enumTitles": ["English", "Italian", "German", "French", "Spanish", "Polish", "Dutch", "Portuguese"]
+        },
+        "maxBriefs": {
+            "title": "Maximum briefs",
+            "type": "integer",
+            "description": "Stop writing briefs after this many, to cap the cost. The other jobs are still saved.",
+            "minimum": 1
+        }
+    },
+    "required": ["companies"]
+}

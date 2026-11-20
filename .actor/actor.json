@@ -1,0 +1,40 @@
+{
+    "actorSpecification": 1,
+    "name": "company-career-jobs",
+    "title": "Company Career Jobs: Greenhouse, Lever, Ashby + AI Brief",
+    "description": "Open jobs of the companies you choose, live from their own career page on Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Recruitee or Personio. Full ad text, locations, pay when published. Optional AI brief: level, must-haves, tech stack, pay, remote rules, visa.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "../Dockerfile",
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "views": {
+                "overview": {
+                    "title": "Overview",
+                    "transformation": {
+                        "fields": ["companySlug", "title", "department", "locations", "workplaceType", "employmentType", "salary.text", "publishedAt", "platform", "url"],
+                        "flatten": ["salary"]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "companySlug": { "label": "Company" },
+                            "title": { "label": "Job" },
+                            "department": { "label": "Department" },
+                            "locations": { "label": "Locations" },
+                            "workplaceType": { "label": "Workplace" },
+                            "employmentType": { "label": "Type" },
+                            "salary.text": { "label": "Pay" },
+                            "publishedAt": { "label": "Published", "format": "date" },
+                            "platform": { "label": "Platform" },
+                            "url": { "label": "Ad", "format": "link" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
